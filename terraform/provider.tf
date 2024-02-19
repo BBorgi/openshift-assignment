@@ -10,5 +10,5 @@ terraform {
 provider "ibm" {
   region        = var.region
   zone          = var.zone
-  generation    = 2
+#  generation    = 2 //deprecated
 }
