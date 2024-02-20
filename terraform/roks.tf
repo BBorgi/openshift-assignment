@@ -1,12 +1,12 @@
-resource "ibm_resource_instance" "borg-cos" {
-  name     = "borg-cos"
-  service  = "cloud-object-storage"
-  plan     = "standard"
-  location = "global"
-}
+#resource "ibm_resource_instance" "borg-cos" {
+#  name     = "borg-cos"
+#  service  = "cloud-object-storage"
+#  plan     = "standard"
+#  location = "global"
+#}
 
-#resource "ibm_container_vpc_cluster" "borg-cluster" {
-#  name              = "borg-cluster"
+#resource "ibm_container_vpc_cluster" "borg-roks" {
+#  name              = "borg-roks"
 #  vpc_id            = ibm_is_vpc.borg-eu-de-vpc.id
 #  kube_version      = "4.14.8_openshift"
 #  kube_version      = "4.14.11_openshift"
