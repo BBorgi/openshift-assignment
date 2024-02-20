@@ -4,3 +4,4 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/.terraform/providers/registry.terraform.io/ibm-cloud/ibm/1.62.0/darwin_arm64/provider_metadata.json
 terraform/terraform.tfvars
+terraform/.terraform.tfstate.lock.info
