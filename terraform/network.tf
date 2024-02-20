@@ -129,3 +129,39 @@ resource "ibm_is_subnet_routing_table_attachment" "borg-3-subnet-borg-routing-ta
   subnet        = ibm_is_subnet.borg-eu-de-3-subnet.id
   routing_table = ibm_is_vpc_routing_table.borg-eu-de-vpc-routing-table.routing_table
 }
+
+resource "ibm_is_public_gateway" "borg-eu-de-1-pgw" {
+  name = "borg-eu-de-1-pgw"
+  vpc  = ibm_is_vpc.borg-eu-de-vpc.id
+  zone = "eu-de-1"
+  resource_group = ibm_resource_group.borg-rg.id
+}
+
+resource "ibm_is_public_gateway" "borg-eu-de-2-pgw" {
+  name = "borg-eu-de-2-pgw"
+  vpc  = ibm_is_vpc.borg-eu-de-vpc.id
+  zone = "eu-de-2"
+  resource_group = ibm_resource_group.borg-rg.id
+}
+
+resource "ibm_is_public_gateway" "borg-eu-de-3-pgw" {
+  name = "borg-eu-de-3-pgw"
+  vpc  = ibm_is_vpc.borg-eu-de-vpc.id
+  zone = "eu-de-3"
+  resource_group = ibm_resource_group.borg-rg.id
+}
+
+resource "ibm_is_subnet_public_gateway_attachment" "borg-1-subnet-borg-pwg" {
+  subnet                = ibm_is_subnet.borg-eu-de-1-subnet.id
+  public_gateway        = ibm_is_public_gateway.borg-eu-de-1-pgw.id
+}
+
+resource "ibm_is_subnet_public_gateway_attachment" "borg-2-subnet-borg-pwg" {
+  subnet                = ibm_is_subnet.borg-eu-de-2-subnet.id
+  public_gateway        = ibm_is_public_gateway.borg-eu-de-2-pgw.id
+}
+
+resource "ibm_is_subnet_public_gateway_attachment" "borg-3-subnet-borg-pwg" {
+  subnet                = ibm_is_subnet.borg-eu-de-3-subnet.id
+  public_gateway        = ibm_is_public_gateway.borg-eu-de-3-pgw.id
+}
