@@ -2,8 +2,9 @@ resource "ibm_is_vpc" "borg-eu-de-vpc" {
   name = "borg-eu-de-vpc"
   address_prefix_management = "manual"
   resource_group = ibm_resource_group.borg-rg.id
-  default_network_acl_name  = ibm_is_network_acl.borg-eu-de-vpc-acl.id
-  default_security_group_name   = ibm_is_security_group.borg-eu-de-vpc-secgroup.id
+#  default_network_acl_name  = ibm_is_network_acl.borg-eu-de-vpc-acl.id
+#  default_security_group_name   = ibm_is_security_group.borg-eu-de-vpc-secgroup.id
+#  default_routing_table_name    = ibm_is_vpc_routing_table.borg-eu-de-vpc-routing-table.id
 }
 
 resource "ibm_is_vpc_address_prefix" "borg-eu-de-1-addr-prefix" {
@@ -92,6 +93,39 @@ resource "ibm_is_network_acl" "borg-eu-de-vpc-acl" {
 }
 
 resource "ibm_is_vpc_routing_table" "borg-eu-de-vpc-routing-table" {
+  depends_on = [
+    ibm_is_vpc.borg-eu-de-vpc
+  ]
   name                             = "borg-eu-de-vpc-routing-table"
   vpc                              = ibm_is_vpc.borg-eu-de-vpc.id
+}
+
+resource "ibm_is_subnet_network_acl_attachment" "borg-1-subnet-borg-acl" {
+  subnet      = ibm_is_subnet.borg-eu-de-1-subnet.id
+  network_acl = ibm_is_network_acl.borg-eu-de-vpc-acl.id
+}
+
+resource "ibm_is_subnet_network_acl_attachment" "borg-2-subnet-borg-acl" {
+  subnet      = ibm_is_subnet.borg-eu-de-2-subnet.id
+  network_acl = ibm_is_network_acl.borg-eu-de-vpc-acl.id
+}
+
+resource "ibm_is_subnet_network_acl_attachment" "borg-3-subnet-borg-acl" {
+  subnet      = ibm_is_subnet.borg-eu-de-3-subnet.id
+  network_acl = ibm_is_network_acl.borg-eu-de-vpc-acl.id
+}
+
+resource "ibm_is_subnet_routing_table_attachment" "borg-1-subnet-borg-routing-table" {
+  subnet        = ibm_is_subnet.borg-eu-de-1-subnet.id
+  routing_table = ibm_is_vpc_routing_table.borg-eu-de-vpc-routing-table.routing_table
+}
+
+resource "ibm_is_subnet_routing_table_attachment" "borg-2-subnet-borg-routing-table" {
+  subnet        = ibm_is_subnet.borg-eu-de-2-subnet.id
+  routing_table = ibm_is_vpc_routing_table.borg-eu-de-vpc-routing-table.routing_table
+}
+
+resource "ibm_is_subnet_routing_table_attachment" "borg-3-subnet-borg-routing-table" {
+  subnet        = ibm_is_subnet.borg-eu-de-3-subnet.id
+  routing_table = ibm_is_vpc_routing_table.borg-eu-de-vpc-routing-table.routing_table
 }
